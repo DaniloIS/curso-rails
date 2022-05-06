@@ -1,14 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Moedas</h1>
-
+<strong><%= cookies[:curso] %></strong>
 <div id="coins">
   <% @coins.each do |coin| %>
     <%= render coin %>
     <p>
-      <%= link_to "Mostrar esta moeda", coin %>
+      <%= link_to t("links.show"), coin %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "Nova moeda", new_coin_path %>
+<%= link_to t("links.new"), new_coin_path %>

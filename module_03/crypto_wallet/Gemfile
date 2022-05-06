@@ -46,6 +46,8 @@ gem "pry-rails"
 
 gem "tty-spinner"
 
+gem "rails-i18n"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
