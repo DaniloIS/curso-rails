@@ -1,17 +1,8 @@
-<div id="<%= dom_id coin %>">
-  <p>
-    <strong><%= @coins.human_attribute_name(:description) %>:</strong>
-    <%= coin.description %>
-  </p>
-
-  <p>
-    <strong><%= @coins.human_attribute_name(:acronym) %>:</strong>
-    <%= coin.acronym %>
-  </p>
-
-  <p>
-    <strong><%= @coins.human_attribute_name(:url_image) %>:</strong>
-    <%= image_tag coin.url_image, size:"25x25" %>
-  </p>
-
-</div>
+<tr>
+  <td><%= coin.description %></td>
+  <td><%= coin.acronym %></td>
+  <td><%= image_tag coin.url_image, size:"25x25" %></td>
+  <td>
+    <%= link_to t("links.show"), coin %>
+  </td>
+</tr>
