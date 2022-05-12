@@ -14,7 +14,12 @@
     </thead>
     <tbody>
       <% @coins.each do |coin| %>
+      <tr id="<%= dom_id coin %>">
         <%= render coin %>
+        <td>
+          <%= link_to t("links.show"), coin %>
+        </td>
+      </tr>
       <% end %>
     </tbody>
   </table>
