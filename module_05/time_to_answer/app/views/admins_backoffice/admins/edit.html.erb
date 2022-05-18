@@ -1,0 +1,30 @@
+<h1>Editando</h1>
+<hr />
+<% if @admin.errors.any? %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Erro:</strong>
+    <ul>
+      <% @admin.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+<%= form_with(model: [ :admins_backoffice, @admin ], local: true) do |form| %>
+  <div class="mb-3">
+    <%= form.label :email, class: "form-label" %>
+    <%= form.text_field :email, class: "form-control", placeholder: "Email" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :password, class: "form-label" %>
+    <%= form.password_field :password, class: "form-control", placeholder: "Digite a senha" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :password_confirmation, class: "form-label" %>
+    <%= form.password_field :password_confirmation, class: "form-control", placeholder: "Confirme a senha" %>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+<% end %>

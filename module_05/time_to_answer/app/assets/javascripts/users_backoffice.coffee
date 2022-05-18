@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 //= require jquery-2.2.3/dist/jquery
+//= require popper.js/dist/umd/popper
 //= require bootstrap/dist/js/bootstrap
 //= require fastclick/lib/fastclick
 //= require nprogress/nprogress
