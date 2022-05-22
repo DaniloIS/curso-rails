@@ -2,7 +2,11 @@ class AdminsBackoffice::SubjectsController < AdminsBackofficeController
   before_action :set_subject, only: [:edit, :update, :destroy]
 
   def index
-    @subjects = Subject.all.order(:description).page(params[:page])
+    respond_to do |format|
+      format.html { @subjects = Subject.all.order(:description).page(params[:page]) }
+      format.pdf  { @subjects = Subject.all.order(:description) }
+      format.json { @subjects = Subject.all.order(:description) }
+    end
   end
 
   def new
@@ -11,8 +15,8 @@ class AdminsBackoffice::SubjectsController < AdminsBackofficeController
 
   def create
     @subject = Subject.new(params_subject)
-    if @subject.save
-      redirect_to admins_backoffice_subjects_path, notice: "Assuntos/Área cadastrado com sucesso!"
+    if  @subject.save
+      redirect_to admins_backoffice_subjects_path, notice: "Assunto/Área cadastrado com sucesso!"
     else
       render :new
     end
@@ -21,24 +25,24 @@ class AdminsBackoffice::SubjectsController < AdminsBackofficeController
   def edit
   end
 
-  def update
-    if @subject.update(params_subject)
-      redirect_to admins_backoffice_subjects_path, notice: "Assuntos/Área atualizado com sucesso!"
+  def update    
+    if  @subject.update(params_subject)
+      redirect_to admins_backoffice_subjects_path, notice: "Assunto/Área atualizado com sucesso!"
     else
       render :edit
     end
   end
 
   def destroy
-    if @subject.destroy
-      redirect_to admins_backoffice_subjects_path, notice: "Assuntos/Área excluído com sucesso!"
+    if  @subject.destroy
+      redirect_to admins_backoffice_subjects_path, notice: "Assunto/Área excluído com sucesso!"
     else
       render :index
     end
   end
 
   private
-
+  
   def params_subject
     params.require(:subject).permit(:description)
   end
