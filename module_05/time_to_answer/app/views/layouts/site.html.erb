@@ -6,11 +6,65 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application' %>
-    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag    'site' %>
   </head>
 
   <body>
-    <h1>LAYOUT SITE</h1>
-    <%= yield %>
+  
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="#">TimeToAnswer</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <% unless user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "Entrar", new_user_session_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Cadastrar-se", new_user_registration_path, class: "nav-link" %>
+            </li>
+          <% else %>
+          <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="mr-2 d-none d-lg-inline text-gray-600"><%= current_user.email %></span>
+                  <%= image_tag "img.jpg", alt:"", class: "img-profile rounded-circle", style: "width: 25px; height: 25px" %>
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                  <%= link_to users_backoffice_welcome_index_path, class: "dropdown-item" do %>
+                      Perfil  
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to destroy_admin_session_path, class: "dropdown-item", method: :delete do %>
+                      Sair
+                  <% end %>
+              </div>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="container">
+      <div class="jumbotron">
+        <%= yield %>
+      </div>
+    </main>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'site' %>
+
+    <% if notice %>
+      <%= javascript_tag do %>
+        $.bootstrapGrowl('<%= notice %>', {
+          type: 'success', // (null, 'info', 'danger', 'success')
+          align: 'right', // ('left', 'right', or 'center')
+          allow_dismiss: true, // If true then will display a cross to close the popup.
+          stackup_spacing: 10 // spacing between consecutively stacked growls.
+        });
+      <% end %>
+    <% end %>
   </body>
 </html>
