@@ -1,0 +1,23 @@
+var el = document.getElementById('submit_<%= @answer.question_id %>');
+
+el.classList.remove('btn-outline-secondary')
+el.classList.remove('btn-success')
+el.classList.remove('btn-danger')
+
+if(<%= @answer.correct %>) {
+  el.classList.add('btn-success')
+  $.bootstrapGrowl('Você acertou! \\o/', {
+    type: 'success', // (null, 'info', 'danger', 'success')
+    align: 'right', // ('left', 'right', or 'center')
+    allow_dismiss: true, // If true then will display a cross to close the popup.
+    stackup_spacing: 10 // spacing between consecutively stacked growls.
+  });
+} else {
+  el.classList.add('btn-danger')
+  $.bootstrapGrowl('Você errou! :(', {
+    type: 'danger', // (null, 'info', 'danger', 'success')
+    align: 'right', // ('left', 'right', or 'center')
+    allow_dismiss: true, // If true then will display a cross to close the popup.
+    stackup_spacing: 10 // spacing between consecutively stacked growls.
+  });
+}

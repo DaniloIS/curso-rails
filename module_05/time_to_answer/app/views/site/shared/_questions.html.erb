@@ -1,16 +1,38 @@
+<main role="main" class="container">
+  <div class="jumbotron">
+    <h3><%= msg_jumbotron %></h3>
+  </div>
+</main>
 <% @questions.each do |question| %>
+  <%= form_with url: site_answer_path do |form| %>
   <div class="card mb-2">
     <div class="card-header">
-      <h3 class="card-title"><%= question.description %></h3>
+      <h3 class="card-title">
+        <span class="tag tag-default">
+          <%= link_to question.subject.description, site_search_subject_path(question.subject_id, question.subject.description) %>
+        </span>
+        <%= question.description %>
+      </h3>
     </div>
     <div class="card-body">
       <ul>
         <% question.answers.each do |answer| %>
-          <li><%= answer.description %></li>
+          <li style="list-style:none">
+            <div class="radio">
+              <label>
+                <%= radio_button_tag 'answer_id', answer.id %>
+                <%= answer.description %>
+              </label>
+            </div>
+          </li>
         <% end %>
+        <li style="list-style:none">
+          <%= form.submit "Responder", class: "btn btn-outline-secondary", id: "submit_#{question.id}" %>
+        </li>
       </ul>
     </div>
   </div>
+  <% end %>
 <% end %>
 <div class="text-center">
   <%= paginate @questions %>
