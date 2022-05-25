@@ -20,6 +20,7 @@
                 </ul>
             </div>
         <% end %>
+        <div>
         <%= form_with(url: users_backoffice_profile_path, model: @user , local: true) do |form| %>
 
           <div class="form-group">
@@ -34,6 +35,52 @@
               <%= form.label :email, class:"" %>
                 <%= form.text_field :email, class:"form-control", readonly: true  %>
           </div>
+
+          <%= form.fields_for :user_profile do |profile_form| %>
+          <div class="form-group">
+              <%= profile_form.label :address, class:"" %>
+                <%= profile_form.text_field :address, class:"form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= profile_form.label :gender, class:"" %>
+            <div class="">
+              <div id="gender" class="btn-group" data-toggle="buttons">
+                <label class="btn <%= gender_select(@user, 'M') %>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                  <%= profile_form.radio_button :gender, "M", "data-parsley-multiple":"gender"%> &nbsp; Masculino &nbsp;
+                </label>
+                <label class="btn <%= gender_select(@user, 'F') %>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                  <%= profile_form.radio_button :gender, "F", "data-parsley-multiple":"gender"%> &nbsp; Feminino &nbsp;
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <%= javascript_tag do %>
+               var labels = document.querySelectorAll('div#gender label');
+
+               labels.forEach((label) => {
+                 label.addEventListener('click', () => {
+                   label.classList.remove('btn-default');
+                   label.classList.add('btn-primary');
+
+                   labels.forEach((lbl) => {
+                     if(lbl !== label){
+                        lbl.classList.remove('btn-primary');
+                        lbl.classList.add('btn-default');
+                     };
+                   });
+                 });
+               });
+            <% end %>
+
+          <div class="form-group">
+              <%= profile_form.label :birthdate, class:"" %>
+              <%= profile_form.text_field :birthdate,
+                value: (l(@user.user_profile.birthdate) unless @user.user_profile.birthdate.blank?),
+                class:"form-control datepicker" %>
+          </div>
+          <% end %>
 
           <div class="form-group">
               <%= form.label :password, class:"" %>
@@ -56,6 +103,7 @@
           </div>
 
         <% end %>
+        </div>
       </div>
     </div>
   </div>
