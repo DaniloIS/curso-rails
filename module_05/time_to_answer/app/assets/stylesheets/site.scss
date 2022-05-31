@@ -5,3 +5,7 @@
 *= require bootstrap/dist/css/bootstrap
 *= require custom
 */
+
+h3.panel-title div {
+  display: inline;
+}
